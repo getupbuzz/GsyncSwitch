@@ -104,24 +104,22 @@ namespace GsyncSwitch
 
             switchOnBoth.Text = "Switch On All";
             switchOnBoth.Click += new EventHandler(SwitchOnBoth_Click);
-            switchOnBoth.ShortcutKeys = Keys.Control |  Keys.T;
+            switchOnBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.R;
             contextMenu.Items.Add(switchOnBoth);
             KeyboardHook onHook = new KeyboardHook();
             onHook.KeyPressed +=
             new EventHandler<KeyPressedEventArgs>(SwitchOnBoth_Click);
-            // register the control + alt + F12 combination as hot key.
             onHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
                 Keys.R);
 
             switchOffBoth.Text = "Switch Off All";
             switchOffBoth.Click += new EventHandler(SwitchOffBoth_Click);
-            switchOffBoth.ShortcutKeys = Keys.Control | Keys.I;
+            switchOffBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.I;
             contextMenu.Items.Add(switchOffBoth);
 
             KeyboardHook offHook = new KeyboardHook();
             offHook.KeyPressed +=
             new EventHandler<KeyPressedEventArgs>(SwitchOffBoth_Click);
-            // register the control + alt + F12 combination as hot key.
             offHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
                 Keys.S);
 
