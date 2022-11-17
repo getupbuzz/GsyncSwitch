@@ -114,7 +114,7 @@ namespace GsyncSwitch
 
             switchOffBoth.Text = "Off";
             switchOffBoth.Click += new EventHandler(SwitchOffBoth_Click);
-            switchOffBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.I;
+            switchOffBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.S;
             contextMenu.Items.Add(switchOffBoth);
 
             KeyboardHook offHook = new KeyboardHook();
