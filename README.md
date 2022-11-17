@@ -1,4 +1,16 @@
 # GsyncSwitch
+
+## Changes
+* Replaces Switch with separate ON and OFF options
+* Removing screen related options
+* Add shortcut for ON/OFF
+
+The `HDR ON/OFF` is implemented by `HDRController.dll`, which is extracted from [AutoActions](https://github.com/Codectory/AutoActions).
+
+<img width="182" alt="eRo9Z4eaV4" src="https://user-images.githubusercontent.com/20685540/202513175-ff30f8f2-1fa0-4a87-88d0-ebe3c7d89680.png">
+
+---
+
 Simple Windows App to switch G-Sync or HDR on/off with one click in taskbar
 
 If you take the release (here on the right), put the 2 files in the same folder and launch GsyncSitch.exe for toolbar app or GsyncSitchEXE.exe to switch directly Gsync mode
