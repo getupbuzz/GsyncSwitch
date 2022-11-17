@@ -138,7 +138,7 @@ namespace GsyncSwitch
             switchOnHDR.Click += new EventHandler(SwitchOnHDR_Click);
             contextMenu.Items.Add(switchOnHDR);
 
-            switchOffHDR.Text = "Switch On HDR";
+            switchOffHDR.Text = "Switch Off HDR";
             switchOffHDR.Image = GsyncSwitch.Properties.Resources.hdr;
             switchOffHDR.Click += new EventHandler(SwitchOffHDR_Click);
             contextMenu.Items.Add(switchOffHDR);
