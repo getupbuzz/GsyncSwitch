@@ -63,15 +63,12 @@ namespace GsyncSwitch
         ControlContainer container = new ControlContainer();
         public NotifyIcon notifyIcon1;
         private ContextMenuStrip contextMenu;
-        private ToolStripMenuItem switchGsync;
-        private ToolStripMenuItem switchHDR;
-        private ToolStripMenuItem to144Hz;
-        private ToolStripMenuItem to120Hz;
-        private ToolStripMenuItem monitorQN95B;
-        private ToolStripMenuItem monitorQN95A;
-        private ToolStripMenuItem monitorClone;
-        private ToolStripMenuItem monitorExtend;
-        private ToolStripMenuItem soundControl;
+        private ToolStripMenuItem switchOnBoth;
+        private ToolStripMenuItem switchOffBoth;
+        private ToolStripMenuItem switchOnGsync;
+        private ToolStripMenuItem switchOffGsync;
+        private ToolStripMenuItem switchOnHDR;
+        private ToolStripMenuItem switchOffHDR;
         private ToolStripMenuItem exitApplication;
         private ToolStripMenuItem launchAtStartup;
 
@@ -91,15 +88,12 @@ namespace GsyncSwitch
             this.notifyIcon1.Visible = true;
 
             contextMenu = new ContextMenuStrip();
-            switchGsync = new ToolStripMenuItem();
-            switchHDR = new ToolStripMenuItem();
-            to120Hz = new ToolStripMenuItem();
-            to144Hz = new ToolStripMenuItem();
-            monitorQN95B = new ToolStripMenuItem();
-            monitorQN95A = new ToolStripMenuItem();
-            monitorClone = new ToolStripMenuItem();
-            monitorExtend = new ToolStripMenuItem();
-            soundControl = new ToolStripMenuItem();
+            switchOffBoth = new ToolStripMenuItem();
+            switchOnBoth = new ToolStripMenuItem();
+            switchOnGsync = new ToolStripMenuItem();
+            switchOffGsync = new ToolStripMenuItem();
+            switchOnHDR = new ToolStripMenuItem();
+            switchOffHDR = new ToolStripMenuItem();
             exitApplication = new ToolStripMenuItem();
             launchAtStartup = new ToolStripMenuItem();
 
@@ -108,45 +102,48 @@ namespace GsyncSwitch
 
             this.notifyIcon1.ContextMenuStrip = contextMenu;
 
-            this.notifyIcon1.DoubleClick += NotifyIcon_DoubleClick;
+            switchOnBoth.Text = "Switch On All";
+            switchOnBoth.Click += new EventHandler(SwitchOnBoth_Click);
+            switchOnBoth.ShortcutKeys = Keys.Control |  Keys.T;
+            contextMenu.Items.Add(switchOnBoth);
+            KeyboardHook onHook = new KeyboardHook();
+            onHook.KeyPressed +=
+            new EventHandler<KeyPressedEventArgs>(SwitchOnBoth_Click);
+            // register the control + alt + F12 combination as hot key.
+            onHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
+                Keys.R);
 
-            switchGsync.Text = "Switch Gsync";
-            switchGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo ;  
-            switchGsync.Click += new EventHandler(SwitchGsync_Click);
-            contextMenu.Items.Add(switchGsync);
+            switchOffBoth.Text = "Switch Off All";
+            switchOffBoth.Click += new EventHandler(SwitchOffBoth_Click);
+            switchOffBoth.ShortcutKeys = Keys.Control | Keys.I;
+            contextMenu.Items.Add(switchOffBoth);
 
-            switchHDR.Text = "Switch HDR";
-            switchHDR.Image = GsyncSwitch.Properties.Resources.hdr;
-            switchHDR.Click += new EventHandler(SwitchHDR_Click);
-            contextMenu.Items.Add(switchHDR);
+            KeyboardHook offHook = new KeyboardHook();
+            offHook.KeyPressed +=
+            new EventHandler<KeyPressedEventArgs>(SwitchOffBoth_Click);
+            // register the control + alt + F12 combination as hot key.
+            offHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
+                Keys.S);
 
-            to144Hz.Text = "To 144 Hz";
-            to144Hz.Click += new EventHandler(To144Hz_Click);
-            contextMenu.Items.Add(to144Hz);
+            switchOnGsync.Text = "Switch On Gsync";
+            switchOnGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo ;  
+            switchOnGsync.Click += new EventHandler(SwitchOnGsync_Click);
+            contextMenu.Items.Add(switchOnGsync);
 
-            to120Hz.Text = "To 120 Hz";
-            to120Hz.Click += new EventHandler(To120Hz_Click);
-            contextMenu.Items.Add(to120Hz);
+            switchOffGsync.Text = "Switch Off Gsync";
+            switchOffGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo;
+            switchOffGsync.Click += new EventHandler(SwitchOffGsync_Click);
+            contextMenu.Items.Add(switchOffGsync);
 
-            monitorQN95B.Text = "Monitor QN95B";
-            monitorQN95B.Click += new EventHandler(MonitorQN95B_Click);
-            contextMenu.Items.Add(monitorQN95B);
+            switchOnHDR.Text = "Switch On HDR";
+            switchOnHDR.Image = GsyncSwitch.Properties.Resources.hdr;
+            switchOnHDR.Click += new EventHandler(SwitchOnHDR_Click);
+            contextMenu.Items.Add(switchOnHDR);
 
-            monitorQN95A.Text = "Monitor QN95A";
-            monitorQN95A.Click += new EventHandler(MonitorQN95A_Click);
-            contextMenu.Items.Add(monitorQN95A);
-
-            monitorClone.Text = "Monitor Clone";
-            monitorClone.Click += new EventHandler(MonitorClone_Click);
-            contextMenu.Items.Add(monitorClone);
-
-            monitorExtend.Text = "Monitor Extend";
-            monitorExtend.Click += new EventHandler(MonitorExtend_Click);
-            contextMenu.Items.Add(monitorExtend);
-
-            soundControl.Text = "Sound Control";
-            soundControl.Click += new EventHandler(SoundControl_Click);
-            contextMenu.Items.Add(soundControl);
+            switchOffHDR.Text = "Switch On HDR";
+            switchOffHDR.Image = GsyncSwitch.Properties.Resources.hdr;
+            switchOffHDR.Click += new EventHandler(SwitchOffHDR_Click);
+            contextMenu.Items.Add(switchOffHDR);
 
             exitApplication.Text = "Exit..";
             exitApplication.Click += new EventHandler(ExitApplication_Click);
@@ -168,48 +165,14 @@ namespace GsyncSwitch
             contextMenu.Items.Add(launchAtStartup);
 
         }
-        private void MonitorExtend_Click(object sender, EventArgs e)
-        {
-            MonitorSwitch.ExtendDisplays();
-        }
 
-        private void MonitorClone_Click(object sender, EventArgs e)
+        private void SwitchOnHDR_Click(object sender, EventArgs e)
         {
-            MonitorSwitch.CloneDisplays();
+            HDRController.SetGlobalHDRState(true);
         }
-
-        private void MonitorQN95A_Click(object sender, EventArgs e)
+        private void SwitchOffHDR_Click(object sender, EventArgs e)
         {
-            MonitorSwitch.InternalDisplay();
-        }
-
-        private void MonitorQN95B_Click(object sender, EventArgs e)
-        {
-            MonitorSwitch.ExternalDisplay();
-        }
-
-        private void To120Hz_Click(object sender, EventArgs e)
-        {
-            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-            Process nircmdEXE = new Process();
-            nircmdEXE.StartInfo.FileName = "nircmd.exe";
-            nircmdEXE.StartInfo.Arguments = "setdisplay 3840 2160 32 120";
-            nircmdEXE.Start();
-        }
-
-        private void To144Hz_Click(object sender, EventArgs e)
-        {
-            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-            Process nircmdEXE = new Process();
-            nircmdEXE.StartInfo.FileName = "nircmd.exe";
-            nircmdEXE.StartInfo.Arguments = "setdisplay 3840 2160 32 144";
-            nircmdEXE.Start();
-        }
-
-        private void SwitchHDR_Click(object sender, EventArgs e)
-        {
-            var simu = new InputSimulator();
-            simu.Keyboard.ModifiedKeyStroke(new[] { VirtualKeyCode.LWIN, VirtualKeyCode.LMENU }, VirtualKeyCode.VK_B);
+            HDRController.SetGlobalHDRState(false);
         }
 
         private void LaunchAtStartup_Click(object sender, EventArgs e)
@@ -228,13 +191,6 @@ namespace GsyncSwitch
             }
         }
 
-
-        private void SoundControl_Click(object sender, EventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("control", "mmsys.cpl sounds"));
-        }
-
-
         private void ExitApplication_Click(object sender, EventArgs e)
         {
             this.notifyIcon1.Visible = false;
@@ -242,23 +198,36 @@ namespace GsyncSwitch
             System.Windows.Forms.Application.Exit();
         }
 
-        private void SwitchGsync(object sender, EventArgs e)
+        private void SwitchGsync(object sender, EventArgs e, string args = "")
         {
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             Process gsyncSwitchEXE = new Process();
             gsyncSwitchEXE.StartInfo.FileName = "GsyncSwitchEXE.exe";
-            //            gsyncSwitchEXE.StartInfo.Arguments = "DemoText";
+            gsyncSwitchEXE.StartInfo.Arguments = args;
             gsyncSwitchEXE.Start();
         }
 
-        private void SwitchGsync_Click(object sender, EventArgs e)
+        private void SwitchOnGsync_Click(object sender, EventArgs e)
         {
-            SwitchGsync(sender,e);
+            SwitchGsync(sender, e, "1");
         }
 
-        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        private void SwitchOffGsync_Click(object sender, EventArgs e)
         {
-            SwitchGsync(sender, e);
+            SwitchGsync(sender, e, "0");
+        }
+
+        private void SwitchOnBoth_Click(object sender, EventArgs e)
+        {
+            SwitchOnGsync_Click(sender, e);
+            SwitchOnHDR_Click(sender, e);
+        }
+
+        private void SwitchOffBoth_Click(Object sender, EventArgs e)
+        {
+            SwitchOffGsync_Click(sender, e);
+            SwitchOffHDR_Click(sender, e);
+
         }
     }
 

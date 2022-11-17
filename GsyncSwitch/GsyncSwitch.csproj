@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hotkey.cs" />
+    <Compile Include="HDRController.cs" />
     <Compile Include="KwizatZMenuColorTable.cs" />
     <Compile Include="KwizatZMenuRenderer.cs" />
     <Compile Include="MonitorSwitch.cs" />
@@ -138,6 +140,10 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy /Y  "$(SolutionDir)GsyncSwitch\HDRController.dll"  "$(TargetDir)HDRController.dll"
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
