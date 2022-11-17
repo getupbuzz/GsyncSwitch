@@ -7,7 +7,7 @@
 
 The `HDR ON/OFF` is implemented by `HDRController.dll`, which is extracted from [AutoActions](https://github.com/Codectory/AutoActions).
 
-<img width="197" alt="kSuFxfKg2V" src="https://user-images.githubusercontent.com/20685540/202511318-f2d2124b-82ef-4188-b32c-1d94989e73ba.png">
+<img width="182" alt="eRo9Z4eaV4" src="https://user-images.githubusercontent.com/20685540/202513175-ff30f8f2-1fa0-4a87-88d0-ebe3c7d89680.png">
 
 ---
 
