@@ -19,7 +19,7 @@ void PrintError2(NvAPI_Status status)
 }
 
 //int main(int argc, char** argv)
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char*, int nShowCmd)
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
     NvAPI_Status status;
     // (0) Initialize NVAPI. This must be done first of all
@@ -58,12 +58,19 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char*, int nShowCmd)
     status = NvAPI_DRS_GetSetting(hSession, hProfile, VRR_MODE_ID, &drsSetting);
     if (status != NVAPI_OK)
         PrintError2(status);
-
-    if (drsSetting.u32CurrentValue == VRR_MODE_DISABLED) {
+    if (strcmp(lpCmdLine, "1") == 0) {
         drsSetting.u32CurrentValue = VRR_MODE_DEFAULT;
     }
-    else {
+    else if (strcmp(lpCmdLine, "0") == 0) {
         drsSetting.u32CurrentValue = VRR_MODE_DISABLED;
+    }
+    else {
+        if (drsSetting.u32CurrentValue == VRR_MODE_DISABLED) {
+            drsSetting.u32CurrentValue = VRR_MODE_DEFAULT;
+        }
+        else {
+            drsSetting.u32CurrentValue = VRR_MODE_DISABLED;
+        }
     }
 
 
