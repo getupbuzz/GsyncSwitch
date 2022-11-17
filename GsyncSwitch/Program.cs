@@ -102,7 +102,7 @@ namespace GsyncSwitch
 
             this.notifyIcon1.ContextMenuStrip = contextMenu;
 
-            switchOnBoth.Text = "Switch On All";
+            switchOnBoth.Text = "On";
             switchOnBoth.Click += new EventHandler(SwitchOnBoth_Click);
             switchOnBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.R;
             contextMenu.Items.Add(switchOnBoth);
@@ -112,7 +112,7 @@ namespace GsyncSwitch
             onHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
                 Keys.R);
 
-            switchOffBoth.Text = "Switch Off All";
+            switchOffBoth.Text = "Off";
             switchOffBoth.Click += new EventHandler(SwitchOffBoth_Click);
             switchOffBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.I;
             contextMenu.Items.Add(switchOffBoth);
@@ -123,22 +123,22 @@ namespace GsyncSwitch
             offHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
                 Keys.S);
 
-            switchOnGsync.Text = "Switch On Gsync";
+            switchOnGsync.Text = "Gsync On";
             switchOnGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo ;  
             switchOnGsync.Click += new EventHandler(SwitchOnGsync_Click);
             contextMenu.Items.Add(switchOnGsync);
 
-            switchOffGsync.Text = "Switch Off Gsync";
+            switchOffGsync.Text = "Gsync Off";
             switchOffGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo;
             switchOffGsync.Click += new EventHandler(SwitchOffGsync_Click);
             contextMenu.Items.Add(switchOffGsync);
 
-            switchOnHDR.Text = "Switch On HDR";
+            switchOnHDR.Text = "HDR On";
             switchOnHDR.Image = GsyncSwitch.Properties.Resources.hdr;
             switchOnHDR.Click += new EventHandler(SwitchOnHDR_Click);
             contextMenu.Items.Add(switchOnHDR);
 
-            switchOffHDR.Text = "Switch Off HDR";
+            switchOffHDR.Text = "HDR Off";
             switchOffHDR.Image = GsyncSwitch.Properties.Resources.hdr;
             switchOffHDR.Click += new EventHandler(SwitchOffHDR_Click);
             contextMenu.Items.Add(switchOffHDR);
