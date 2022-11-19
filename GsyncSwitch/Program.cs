@@ -11,6 +11,8 @@ using WindowsInput;
 using WindowsInput.Native;
 using System.Runtime.InteropServices;
 using System.IO;
+using NHotkey.WindowsForms;
+using System.Globalization;
 
 namespace GsyncSwitch
 {
@@ -106,27 +108,19 @@ namespace GsyncSwitch
             switchOnBoth.Click += new EventHandler(SwitchOnBoth_Click);
             switchOnBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.R;
             contextMenu.Items.Add(switchOnBoth);
-            KeyboardHook onHook = new KeyboardHook();
-            onHook.KeyPressed +=
-            new EventHandler<KeyPressedEventArgs>(SwitchOnBoth_Click);
-            onHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
-                Keys.R);
+            HotkeyManager.Current.AddOrReplace("On", Keys.Control | Keys.Alt | Keys.R, SwitchOnBoth_Click);
 
             switchOffBoth.Text = "Off";
             switchOffBoth.Click += new EventHandler(SwitchOffBoth_Click);
             switchOffBoth.ShortcutKeys = Keys.Control | Keys.Alt | Keys.S;
             contextMenu.Items.Add(switchOffBoth);
-
-            KeyboardHook offHook = new KeyboardHook();
-            offHook.KeyPressed +=
-            new EventHandler<KeyPressedEventArgs>(SwitchOffBoth_Click);
-            offHook.RegisterHotKey(ModifierKeys.Control | ModifierKeys.Alt,
-                Keys.S);
+            HotkeyManager.Current.AddOrReplace("Off", Keys.Control | Keys.Alt | Keys.S, SwitchOffBoth_Click);
 
             switchOnGsync.Text = "Gsync On";
             switchOnGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo ;  
             switchOnGsync.Click += new EventHandler(SwitchOnGsync_Click);
             contextMenu.Items.Add(switchOnGsync);
+
 
             switchOffGsync.Text = "Gsync Off";
             switchOffGsync.Image = GsyncSwitch.Properties.Resources.nvidia_logo;
